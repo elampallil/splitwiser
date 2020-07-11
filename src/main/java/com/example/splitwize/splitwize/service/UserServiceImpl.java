@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private String hashPassword;
     @Autowired
     JwtTokenUtil jwtTokenUtil;
-//    @Autowired
+    //    @Autowired
 //    ResponseMessages responseMessages;
     @Autowired
     UserRepo userRepo;
@@ -32,23 +32,40 @@ public class UserServiceImpl implements UserService {
         userRegiData.setCust_id(id.toString());
 
 
-
         SuccessResponse<UserRegiData> userRegiDataResponseMessages = new SuccessResponse<UserRegiData>();
         userRegiDataResponseMessages.setData(userRepo.addUserDetails(userRegiData));
 
-       return userRegiDataResponseMessages;
+        return userRegiDataResponseMessages;
     }
 
     @Override
     public SuccessResponse<UserRegiData> getUserDetails(int id) {
         SuccessResponse<UserRegiData> userRegiDataResponseMessages = new SuccessResponse<UserRegiData>();
-        if(userRepo.getUserDetails(id).isPresent()) {
+        if (userRepo.getUserDetails(id).isPresent()) {
             userRegiDataResponseMessages.setData(userRepo.getUserDetails(id).get());
-        }
-        else{
+        } else {
             throw new UserNotFoundEx(ErrorCode.USER_NOT_FOUND);
         }
-        return  userRegiDataResponseMessages;
+        return userRegiDataResponseMessages;
+    }
+
+    @Override
+    public SuccessResponse<UserRegiData> login(int id, String password) {
+        String paswdHash = passwordHashing(password);
+        UserRegiData userRegiData = new UserRegiData();
+        SuccessResponse<UserRegiData> userRegiDataResponseMessages = new SuccessResponse<UserRegiData>();
+        if (userRepo.getUserDetails(id).isPresent()) {
+            userRegiData = userRepo.getUserDetails(id).get();
+            if (userRegiData.getPassword().equals(paswdHash)) {
+                userRegiDataResponseMessages.setData(userRegiData);
+                userRegiDataResponseMessages.setMessage("password correct");
+            } else {
+                throw new RuntimeException("invalid password");
+            }
+        } else {
+            throw new UserNotFoundEx(ErrorCode.USER_NOT_FOUND);
+        }
+        return userRegiDataResponseMessages;
     }
 
     private String passwordHashing(String passwd) {

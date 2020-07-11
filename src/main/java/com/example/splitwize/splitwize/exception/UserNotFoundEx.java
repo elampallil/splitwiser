@@ -4,6 +4,7 @@ import com.example.splitwize.splitwize.enums.ErrorCode;
 
 public class UserNotFoundEx extends RuntimeException {
     private ErrorCode code;
+
     public UserNotFoundEx(ErrorCode code) {
         this.code = code;
     }

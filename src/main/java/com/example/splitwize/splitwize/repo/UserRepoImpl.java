@@ -21,10 +21,6 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public UserRegiData addUserDetails(UserRegiData userRegiData) {
-      /*  List<UserRegiData> list=new ArrayList<UserRegiData>();
-
-        list= userDataRepository.findAll();
-        return list;*/
         return userDataRepository.save(userRegiData);
     }
 

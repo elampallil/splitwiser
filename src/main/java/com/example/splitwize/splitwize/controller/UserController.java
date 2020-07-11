@@ -20,4 +20,9 @@ public class UserController {
     public SuccessResponse<UserRegiData> getUserDetails(@PathVariable int id) {
        return userService.getUserDetails(id);
     }
+
+    @RequestMapping(value = "/user/login/{id}/{password}", method = RequestMethod.GET)
+    public SuccessResponse<UserRegiData> login(@PathVariable int id ,@PathVariable String password){
+        return userService.login(id,password);
+    }
 }

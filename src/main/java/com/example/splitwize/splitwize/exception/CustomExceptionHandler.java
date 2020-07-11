@@ -12,16 +12,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
-    private ResponseEntity<GenericExceptionResponse> handleAll(Exception ex, WebRequest req){
+    private ResponseEntity<GenericExceptionResponse> handleAll(Exception ex, WebRequest req) {
 
-        GenericExceptionResponse exception = new GenericExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ErrorCode.SERVER_ERROR, "daivathin ariyam");
+        GenericExceptionResponse exception = new GenericExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ErrorCode.SERVER_ERROR, ex.getMessage());
         return new ResponseEntity<GenericExceptionResponse>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    //creating custom exception handling for user not found
     @ExceptionHandler(UserNotFoundEx.class)
-    private ResponseEntity<GenericExceptionResponse> usernotfound(UserNotFoundEx ex, WebRequest req){
+    private ResponseEntity<GenericExceptionResponse> usernotfound(UserNotFoundEx ex, WebRequest req) {
 
-        GenericExceptionResponse exception = new GenericExceptionResponse(HttpStatus.NOT_FOUND.value(), ex.getCode(), "daivathin ariyam");
+        GenericExceptionResponse exception = new GenericExceptionResponse(HttpStatus.NOT_FOUND.value(), ex.getCode(), "sorry");
         return new ResponseEntity<GenericExceptionResponse>(exception, HttpStatus.NOT_FOUND);
     }
 

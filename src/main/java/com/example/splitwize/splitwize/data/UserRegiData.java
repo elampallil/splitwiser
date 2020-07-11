@@ -57,6 +57,7 @@ public class UserRegiData {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public int getId() {
         return id;
     }

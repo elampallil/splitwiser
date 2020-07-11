@@ -1,7 +1,6 @@
 package com.example.splitwize.splitwize.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +10,16 @@ public class SuccessResponse<T> {
     private int status = 200;
     private T data;
     private List<T> details;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    private String message;
 
     public int getStatus() {
         return status;
