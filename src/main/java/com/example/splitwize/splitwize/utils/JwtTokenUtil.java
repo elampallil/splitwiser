@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,13 +21,13 @@ import java.util.function.Function;
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    public static final long JWT_TOKEN_VALIDITY = 1;
 
     @Value("${jwt.secret}")
     private String secret;
 
     //retrieve username from jwt token
-    public String getPasswordFromToken(String token) {
+    public String getIdFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
@@ -54,19 +55,19 @@ public class JwtTokenUtil implements Serializable {
     //generate token for user
     public String generateToken(UserRegiData userRegiData) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userRegiData.getPassword());
+        return doGenerateToken(claims, userRegiData.getId().toString());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration( new Date(Instant.now().toEpochMilli() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     //validate token
-    public Boolean validateToken(String token, UserDetailsAggregate userDetailsAggregate) {
-        final String username = getPasswordFromToken(token);
-        return (username.equals(userDetailsAggregate.getPassword()) && !isTokenExpired(token));
+    public Boolean validateToken(String token) {
+        final String username = getIdFromToken(token);
+        return (!isTokenExpired(token));
     }
 }

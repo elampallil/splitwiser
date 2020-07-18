@@ -40,8 +40,8 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public UserPaymentDetails saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String password) {
-        UserRegiData user = userDataRepository.findByPassword(password);
+    public UserPaymentDetails saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String id) {
+        UserRegiData user = userDataRepository.findById(Integer.parseInt(id)).get();
         UserPaymentDetails details = new UserPaymentDetails();
         details.setBorrowed_amount(paymentDetailRequest.getBorrowed_amount());
         details.setLent_amount(paymentDetailRequest.getLent_amount());

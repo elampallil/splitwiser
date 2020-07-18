@@ -26,11 +26,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SuccessResponse<UserRegiData> addUserDetails(UserRegiData userRegiData) {
-        String token = jwtTokenUtil.generateToken(userRegiData);
-        Long id = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        //String token = jwtTokenUtil.generateToken(userRegiData);
+        //Long id = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
         String hashResult = passwordHashing(userRegiData.getPassword());
         userRegiData.setPassword(hashResult);
-        userRegiData.setToken(token);
+      //  userRegiData.setToken(token);
         //userRegiData.setCust_id(id.toString());
 
 
@@ -76,11 +76,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public SuccessResponse<UserPaymentDetails> saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String token) {
         SuccessResponse<UserPaymentDetails> userRegiDataResponseMessages = new SuccessResponse<UserPaymentDetails>();
-        String actualToken = token.split(" ")[1];
-        String password = jwtTokenUtil.getPasswordFromToken(actualToken);
-        String hashPaswd = passwordHashing(password);
+        String id = jwtTokenUtil.getIdFromToken(token);
+       String hashPaswd = passwordHashing(id);
+         if(jwtTokenUtil.validateToken(token)){
+             userRegiDataResponseMessages.setData(userRepo.saveUserPaymentDetails(paymentDetailRequest, id));
+         }
+         else {
+             userRegiDataResponseMessages.setMessage("token expired");
+         }
 
-        userRegiDataResponseMessages.setData(userRepo.saveUserPaymentDetails(paymentDetailRequest, hashPaswd));
         return userRegiDataResponseMessages;
     }
 
