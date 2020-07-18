@@ -1,4 +1,4 @@
-package com.example.splitwize.splitwize.data;
+package com.example.splitwize.splitwize.entity;
 
 public class UserDetailsAggregate {
     private String id;

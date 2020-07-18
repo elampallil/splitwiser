@@ -1,9 +1,11 @@
 package com.example.splitwize.splitwize.service;
 
-import com.example.splitwize.splitwize.data.UserRegiData;
+import com.example.splitwize.splitwize.entity.UserPaymentDetails;
+import com.example.splitwize.splitwize.entity.UserRegiData;
 import com.example.splitwize.splitwize.enums.ErrorCode;
 import com.example.splitwize.splitwize.exception.UserNotFoundEx;
 import com.example.splitwize.splitwize.repo.UserRepo;
+import com.example.splitwize.splitwize.request.PaymentDetailRequest;
 import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
         String hashResult = passwordHashing(userRegiData.getPassword());
         userRegiData.setPassword(hashResult);
         userRegiData.setToken(token);
-        userRegiData.setCust_id(id.toString());
+        //userRegiData.setCust_id(id.toString());
 
 
         SuccessResponse<UserRegiData> userRegiDataResponseMessages = new SuccessResponse<UserRegiData>();
@@ -56,6 +58,9 @@ public class UserServiceImpl implements UserService {
         SuccessResponse<UserRegiData> userRegiDataResponseMessages = new SuccessResponse<UserRegiData>();
         if (userRepo.getUserDetails(id).isPresent()) {
             userRegiData = userRepo.getUserDetails(id).get();
+           String token = jwtTokenUtil.generateToken(userRegiData);
+            userRegiData.setToken(token);
+            userRegiData.setPassword(paswdHash);
             if (userRegiData.getPassword().equals(paswdHash)) {
                 userRegiDataResponseMessages.setData(userRegiData);
                 userRegiDataResponseMessages.setMessage("password correct");
@@ -68,7 +73,18 @@ public class UserServiceImpl implements UserService {
         return userRegiDataResponseMessages;
     }
 
-    private String passwordHashing(String passwd) {
+    @Override
+    public SuccessResponse<UserPaymentDetails> saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String token) {
+        SuccessResponse<UserPaymentDetails> userRegiDataResponseMessages = new SuccessResponse<UserPaymentDetails>();
+        String actualToken = token.split(" ")[1];
+        String password = jwtTokenUtil.getPasswordFromToken(actualToken);
+        String hashPaswd = passwordHashing(password);
+
+        userRegiDataResponseMessages.setData(userRepo.saveUserPaymentDetails(paymentDetailRequest, hashPaswd));
+        return userRegiDataResponseMessages;
+    }
+
+     private  String passwordHashing(String passwd) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(passwd.getBytes());

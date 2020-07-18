@@ -1,6 +1,8 @@
 package com.example.splitwize.splitwize.controller;
 
-import com.example.splitwize.splitwize.data.UserRegiData;
+import com.example.splitwize.splitwize.entity.UserPaymentDetails;
+import com.example.splitwize.splitwize.entity.UserRegiData;
+import com.example.splitwize.splitwize.request.PaymentDetailRequest;
 import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +27,9 @@ public class UserController {
     public SuccessResponse<UserRegiData> login(@PathVariable int id ,@PathVariable String password){
         return userService.login(id,password);
     }
+
+   @RequestMapping(value = "/user/payment/details",method = RequestMethod.POST)
+    public SuccessResponse<UserPaymentDetails> saveUserPaymentDetails(@RequestHeader("Authorization") String token, @RequestBody PaymentDetailRequest paymentDetailRequest){
+       return userService.saveUserPaymentDetails(paymentDetailRequest, token);
+   }
 }

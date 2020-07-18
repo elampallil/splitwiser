@@ -1,4 +1,4 @@
-package com.example.splitwize.splitwize.data;
+package com.example.splitwize.splitwize.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class UserRegiData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String cust_id;
+    private Integer id;
+//    private String cust_id;
     private String name;
     private String email;
     private String phoneNumber;
@@ -58,19 +58,19 @@ public class UserRegiData {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCust_id() {
-        return cust_id;
-    }
-
-    public void setCust_id(String cust_id) {
-        this.cust_id = cust_id;
-    }
+//    public String getCust_id() {
+//        return cust_id;
+//    }
+//
+//    public void setCust_id(String cust_id) {
+//        this.cust_id = cust_id;
+//    }
 }

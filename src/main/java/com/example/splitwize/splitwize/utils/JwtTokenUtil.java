@@ -1,7 +1,7 @@
 package com.example.splitwize.splitwize.utils;
 
-import com.example.splitwize.splitwize.data.UserDetailsAggregate;
-import com.example.splitwize.splitwize.data.UserRegiData;
+import com.example.splitwize.splitwize.entity.UserDetailsAggregate;
+import com.example.splitwize.splitwize.entity.UserRegiData;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
