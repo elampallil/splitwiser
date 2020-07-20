@@ -1,6 +1,5 @@
 package com.example.splitwize.splitwize.utils;
 
-import com.example.splitwize.splitwize.entity.UserDetailsAggregate;
 import com.example.splitwize.splitwize.entity.UserRegiData;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -8,20 +7,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
 @Component
 @PropertySource(value = {"classpath:application.properties"})
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static final long JWT_TOKEN_VALIDITY = 1;
+    public static final long JWT_TOKEN_VALIDITY = 60;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -62,7 +60,7 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration( new Date(Instant.now().toEpochMilli() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(Instant.now().toEpochMilli() + JWT_TOKEN_VALIDITY * 10000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 

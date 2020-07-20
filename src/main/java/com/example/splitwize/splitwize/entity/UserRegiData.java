@@ -1,9 +1,8 @@
 package com.example.splitwize.splitwize.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class UserRegiData {
@@ -14,10 +13,24 @@ public class UserRegiData {
     private String name;
     private String email;
     private String phoneNumber;
-
+//    @OneToMany(mappedBy = "UserRegiData", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<UserPaymentDetails> userPaymentDetails = new ArrayList<>();
     public String getToken() {
         return token;
     }
+
+//    addPayDet(UserPaymentDetails s){
+//        userPaymentDetails.add(s);
+//        s.setUserRegiData(this);
+//    }
+
+//    public List<UserPaymentDetails> getUserPaymentDetails() {
+//        return userPaymentDetails;
+//    }
+//
+//    public void setUserPaymentDetails(List<UserPaymentDetails> userPaymentDetails) {
+//        this.userPaymentDetails = userPaymentDetails;
+//    }
 
     public void setToken(String token) {
         this.token = token;
@@ -66,11 +79,5 @@ public class UserRegiData {
         this.id = id;
     }
 
-//    public String getCust_id() {
-//        return cust_id;
-//    }
-//
-//    public void setCust_id(String cust_id) {
-//        this.cust_id = cust_id;
-//    }
+
 }

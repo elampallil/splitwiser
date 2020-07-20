@@ -10,4 +10,5 @@ public interface UserService {
     public SuccessResponse<UserRegiData> getUserDetails(int id);
     public SuccessResponse<UserRegiData> login(int id,String password);
     public SuccessResponse<UserPaymentDetails> saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String token);
+    public  String deleteAllPaymentDetails(int id);
 }

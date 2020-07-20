@@ -7,10 +7,10 @@ import com.example.splitwize.splitwize.repository.UserDataRepository;
 import com.example.splitwize.splitwize.repository.UserPaymentDetailsRepository;
 import com.example.splitwize.splitwize.request.PaymentDetailRequest;
 import com.example.splitwize.splitwize.service.UserService;
-import com.example.splitwize.splitwize.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -48,6 +48,13 @@ public class UserRepoImpl implements UserRepo {
         details.setOppo_name(paymentDetailRequest.getOppo_name());
         details.setUserRegiData(user);
         return userPaymentDetailsRepository.save(details);
+    }
+
+    @Override
+    @Transactional
+    public String deleteAllPaymentDetails(int id) {
+       UserRegiData user = userDataRepository.getOne(id);
+        return   userPaymentDetailsRepository.deleteByUserRegiData(user).toString();
     }
 
 }

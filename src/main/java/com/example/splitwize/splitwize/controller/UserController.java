@@ -32,4 +32,9 @@ public class UserController {
     public SuccessResponse<UserPaymentDetails> saveUserPaymentDetails(@RequestHeader("Authorization") String token, @RequestBody PaymentDetailRequest paymentDetailRequest){
        return userService.saveUserPaymentDetails(paymentDetailRequest, token);
    }
+
+   @RequestMapping(value = "/user/payment/delete/{id}",method = RequestMethod.DELETE)
+    public String deleteAllPaymentDetails(@PathVariable int id){
+        return  userService.deleteAllPaymentDetails(id);
+   }
 }

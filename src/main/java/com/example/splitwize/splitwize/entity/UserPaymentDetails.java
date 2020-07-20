@@ -10,7 +10,7 @@ public class UserPaymentDetails {
     @Id
     private int id;
     @ManyToOne
-    @JoinColumn(name="cust_id")
+    @JoinColumn(name="custId")
     private UserRegiData userRegiData;
     private  String oppo_name;
     private long lent_amount;

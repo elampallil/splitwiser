@@ -10,6 +10,7 @@ import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -88,7 +89,13 @@ public class UserServiceImpl implements UserService {
         return userRegiDataResponseMessages;
     }
 
-     private  String passwordHashing(String passwd) {
+    @Override
+    public String deleteAllPaymentDetails(int id) {
+
+       return userRepo.deleteAllPaymentDetails(id);
+    }
+
+    private  String passwordHashing(String passwd) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(passwd.getBytes());
