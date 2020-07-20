@@ -1,34 +1,33 @@
 package com.example.splitwize.splitwize.utils;
 
-import com.example.splitwize.splitwize.entity.UserDetailsAggregate;
-import com.example.splitwize.splitwize.entity.UserRegiData;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import javax.crypto.SecretKey;
+
+import com.example.splitwize.splitwize.classes.CustomUserDetails;
+
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 @PropertySource(value = { "classpath:application.properties" })
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 1;
+    public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 60*60*12;
 
-    @Value("${jwt.secret}")
-    private String secret;
+    // @Value("${jwt.secret}")
+    private SecretKey secret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     // retrieve username from jwt token
     public String getUsernameFromToken(String token) {
@@ -57,9 +56,10 @@ public class JwtTokenUtil implements Serializable {
     }
 
     // generate token for user
-    public String generateToken(UserRegiData userRegiData) {
+    public String generateToken(CustomUserDetails customUserDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userRegiData.getId().toString());
+        claims.put("roles",customUserDetails.getAuthorities());
+        return doGenerateToken(claims, customUserDetails.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -69,7 +69,7 @@ public class JwtTokenUtil implements Serializable {
         .setSubject(subject)
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS*1000))
-        .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS512)
+        .signWith(secret)
         .compact();
     }
 

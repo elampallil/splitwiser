@@ -1,8 +1,10 @@
 package com.example.splitwize.splitwize.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class UserPaymentDetails {
@@ -10,20 +12,12 @@ public class UserPaymentDetails {
     @Id
     private int id;
     @ManyToOne
-    @JoinColumn(name="cust_id")
-    private UserRegiData userRegiData;
-    private  String oppo_name;
-    private long lent_amount;
-    private  long borrowed_amount;
+    private User user;
+    private String oppoName;
+    private Double lentAmount;
+    private Double borrowedAmount;
 
-    public UserRegiData getUserRegiData() {
-        return userRegiData;
-    }
-
-    public void setUserRegiData(UserRegiData userRegiData) {
-        this.userRegiData = userRegiData;
-    }
-
+    
     public int getId() {
         return id;
     }
@@ -32,45 +26,37 @@ public class UserPaymentDetails {
         this.id = id;
     }
 
-//    public String getCust_id() {
-//        return cust_id;
-//    }
-//
-//    public void setCust_id(String cust_id) {
-//        this.cust_id = cust_id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-
-    public String getOppo_name() {
-        return oppo_name;
+    public User getUser() {
+        return user;
     }
 
-    public void setOppo_name(String oppo_name) {
-        this.oppo_name = oppo_name;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public long getLent_amount() {
-        return lent_amount;
+    public String getOppoName() {
+        return oppoName;
     }
 
-    public void setLent_amount(long lent_amount) {
-        this.lent_amount = lent_amount;
+    public void setOppoName(String oppoName) {
+        this.oppoName = oppoName;
     }
 
-    public long getBorrowed_amount() {
-        return borrowed_amount;
+    public Double getLentAmount() {
+        return lentAmount;
     }
 
-    public void setBorrowed_amount(long borrowed_amount) {
-        this.borrowed_amount = borrowed_amount;
+    public void setLentAmount(Double lentAmount) {
+        this.lentAmount = lentAmount;
     }
 
+    public Double getBorrowedAmount() {
+        return borrowedAmount;
+    }
 
+    public void setBorrowedAmount(Double borrowedAmount) {
+        this.borrowedAmount = borrowedAmount;
+    }
+
+    
 }
