@@ -3,7 +3,6 @@ package com.example.splitwize.splitwize.request;
 public class UserRegisterRequest {
     private String username;
     private String password;
-    private String roles;
     private String email;
     private String phoneNumber;
 
@@ -21,14 +20,6 @@ public class UserRegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
     }
 
     public String getEmail() {

@@ -1,13 +1,14 @@
 package com.example.splitwize.splitwize.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import java.util.List;
 
-// annotation for eliminate null value
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class SuccessResponse<T> {
     private int status = 200;
+    @JsonUnwrapped
     private T data;
     private List<T> details;
 
@@ -55,8 +56,5 @@ public class SuccessResponse<T> {
     public void setDetails(List<T> details) {
         this.details = details;
     }
-
-
-
 
 }

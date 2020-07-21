@@ -27,31 +27,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/session/register")
-    public ResponseEntity<?> register(@RequestBody UserRegisterRequest userRegisterRequest) {
-        User user = customUserDetailsService.addUser(userRegisterRequest);
-
-        return login(new AuthRequest(user.getUsername(), user.getPassword()));
+    public User register(@RequestBody UserRegisterRequest userRegisterRequest) {
+       return customUserDetailsService.addUser(userRegisterRequest);
+        //return login(new AuthRequest(userRegisterRequest.getUsername(), userRegisterRequest.getPassword()));
     }
 
     @PostMapping("/session/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-            throw new RuntimeException("Incorrect credentials", e);
-        }
-        final CustomUserDetails customUserDetails = customUserDetailsService
-                .loadUserByUsername(authRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(customUserDetails);
-        return ResponseEntity.ok(new AuthResponse<String>(jwt));
+        return ResponseEntity.ok(customUserDetailsService.login(authRequest));
     }
 
     @GetMapping("{id}")

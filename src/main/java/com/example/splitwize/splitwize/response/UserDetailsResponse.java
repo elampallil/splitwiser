@@ -37,7 +37,5 @@ public class UserDetailsResponse {
         this.phoneNumber = phoneNumber;
     }
 
-
-
     
 }
