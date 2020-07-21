@@ -37,4 +37,9 @@ public class UserController {
     public String deleteAllPaymentDetails(@PathVariable int id){
         return  userService.deleteAllPaymentDetails(id);
    }
+
+   @RequestMapping(value = "user/payment/update",method = RequestMethod.POST)
+    public  SuccessResponse<UserPaymentDetails> saveUpdatedPayDetails(@RequestBody PaymentDetailRequest paymentDetailRequest){
+        return userService.saveUpdatedPayDetails(paymentDetailRequest);
+   }
 }

@@ -11,4 +11,5 @@ public interface UserRepo {
     public Optional<UserRegiData> getUserDetails(int id);
     public UserPaymentDetails saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, String id);
     public String deleteAllPaymentDetails(int id);
+    public UserPaymentDetails saveUpdatedPayDetails(PaymentDetailRequest paymentDetailRequest);
 }

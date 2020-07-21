@@ -45,7 +45,7 @@ public class UserRepoImpl implements UserRepo {
         UserPaymentDetails details = new UserPaymentDetails();
         details.setBorrowed_amount(paymentDetailRequest.getBorrowed_amount());
         details.setLent_amount(paymentDetailRequest.getLent_amount());
-        details.setOppo_name(paymentDetailRequest.getOppo_name());
+        details.setName(paymentDetailRequest.getOppo_name());
         details.setUserRegiData(user);
         return userPaymentDetailsRepository.save(details);
     }
@@ -55,6 +55,15 @@ public class UserRepoImpl implements UserRepo {
     public String deleteAllPaymentDetails(int id) {
        UserRegiData user = userDataRepository.getOne(id);
         return   userPaymentDetailsRepository.deleteByUserRegiData(user).toString();
+    }
+
+    @Override
+    public UserPaymentDetails saveUpdatedPayDetails(PaymentDetailRequest paymentDetailRequest) {
+        UserPaymentDetails userPaymentDetails = new UserPaymentDetails();
+      userPaymentDetails =  userPaymentDetailsRepository.findByName(paymentDetailRequest.getOppo_name());
+      userPaymentDetails.setLent_amount(paymentDetailRequest.getLent_amount());
+      userPaymentDetails.setBorrowed_amount(paymentDetailRequest.getBorrowed_amount());
+      return userPaymentDetailsRepository.save(userPaymentDetails);
     }
 
 }

@@ -10,7 +10,6 @@ import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -93,6 +92,14 @@ public class UserServiceImpl implements UserService {
     public String deleteAllPaymentDetails(int id) {
 
        return userRepo.deleteAllPaymentDetails(id);
+    }
+
+    @Override
+    public SuccessResponse<UserPaymentDetails> saveUpdatedPayDetails(PaymentDetailRequest paymentDetailRequest) {
+        SuccessResponse<UserPaymentDetails> userRegiDataResponseMessages = new SuccessResponse<UserPaymentDetails>();
+     userRegiDataResponseMessages.setData(userRepo.saveUpdatedPayDetails(paymentDetailRequest));
+     return  userRegiDataResponseMessages;
+
     }
 
     private  String passwordHashing(String passwd) {

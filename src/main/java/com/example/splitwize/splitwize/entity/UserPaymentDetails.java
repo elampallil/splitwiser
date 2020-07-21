@@ -1,7 +1,5 @@
 package com.example.splitwize.splitwize.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +10,7 @@ public class UserPaymentDetails {
     @ManyToOne
     @JoinColumn(name="custId")
     private UserRegiData userRegiData;
-    private  String oppo_name;
+    private  String name;
     private long lent_amount;
     private  long borrowed_amount;
 
@@ -48,12 +46,12 @@ public class UserPaymentDetails {
 //        this.name = name;
 //    }
 
-    public String getOppo_name() {
-        return oppo_name;
+    public String getName() {
+        return name;
     }
 
-    public void setOppo_name(String oppo_name) {
-        this.oppo_name = oppo_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getLent_amount() {
