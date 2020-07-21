@@ -2,12 +2,12 @@ package com.example.splitwize.splitwize.response;
 
 import com.example.splitwize.splitwize.enums.ErrorCode;
 
-public class GenericExceptionResponse {
+public class ErrorResponse {
     private int status;
     private ErrorCode code;
     private String message;
 
-    public GenericExceptionResponse(int status, ErrorCode code, String message) {
+    public ErrorResponse(int status, ErrorCode code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;

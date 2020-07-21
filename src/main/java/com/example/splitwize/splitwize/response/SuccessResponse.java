@@ -11,6 +11,17 @@ public class SuccessResponse<T> {
     private T data;
     private List<T> details;
 
+    public SuccessResponse() {
+    }
+    
+    public SuccessResponse(T data) {
+        this.data = data;
+    }
+
+    public SuccessResponse(List<T> details) {
+        this.details = details;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -44,4 +55,8 @@ public class SuccessResponse<T> {
     public void setDetails(List<T> details) {
         this.details = details;
     }
+
+
+
+
 }

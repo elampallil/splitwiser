@@ -1,31 +1,32 @@
 package com.example.splitwize.splitwize.request;
 
 public class PaymentDetailRequest {
-    private  String oppo_name;
-    private long lent_amount;
-    private  long borrowed_amount;
+    private  String oppoName;
+    private Double lentAmount;
+    private  Double borrowedAmount;
 
-    public String getOppo_name() {
-        return oppo_name;
+    public String getOppoName() {
+        return oppoName;
     }
 
-    public void setOppo_name(String oppo_name) {
-        this.oppo_name = oppo_name;
+    public void setOppoName(String oppoName) {
+        this.oppoName = oppoName;
     }
 
-    public long getLent_amount() {
-        return lent_amount;
+    public Double getLentAmount() {
+        return lentAmount;
     }
 
-    public void setLent_amount(long lent_amount) {
-        this.lent_amount = lent_amount;
+    public void setLentAmount(Double lentAmount) {
+        this.lentAmount = lentAmount;
     }
 
-    public long getBorrowed_amount() {
-        return borrowed_amount;
+    public Double getBorrowedAmount() {
+        return borrowedAmount;
     }
 
-    public void setBorrowed_amount(long borrowed_amount) {
-        this.borrowed_amount = borrowed_amount;
+    public void setBorrowedAmount(Double borrowedAmount) {
+        this.borrowedAmount = borrowedAmount;
     }
+
 }
