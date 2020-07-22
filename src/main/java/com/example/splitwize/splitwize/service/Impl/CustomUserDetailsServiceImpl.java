@@ -79,5 +79,4 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         user.orElseThrow(() -> new UserNotFoundException("User with id:" + id + " not found"));
         return user.map(UserDetailsResponse::new).get();
     }
-
 }

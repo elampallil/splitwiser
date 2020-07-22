@@ -8,10 +8,7 @@ import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.service.PaymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * PaymentController
@@ -28,5 +25,18 @@ public class PaymentController {
             @RequestBody PaymentDetailRequest paymentDetailRequest, Principal principal) {
         return new SuccessResponse<UserPaymentDetails>(
                 paymentService.saveUserPaymentDetails(paymentDetailRequest, principal));
+    }
+
+    @PostMapping("/update")
+    public SuccessResponse<UserPaymentDetails> saveUserPaymentUpdatedDetails(@RequestBody PaymentDetailRequest paymentDetailRequest,
+    Principal principal){
+        return  new SuccessResponse<UserPaymentDetails>(
+                paymentService.saveUserPaymentUpdatedDetails(paymentDetailRequest,principal)
+        );
+    }
+
+    @DeleteMapping("/delete")
+    public String userDetailsDeleted(Principal principal){
+        return  paymentService.userDetailsDeleted(principal);
     }
 }

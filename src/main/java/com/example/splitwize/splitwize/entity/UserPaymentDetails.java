@@ -13,7 +13,7 @@ public class UserPaymentDetails {
     private int id;
     @ManyToOne
     private User user;
-    private String oppoName;
+    private String opponame;
     private Double lentAmount;
     private Double borrowedAmount;
 
@@ -34,12 +34,12 @@ public class UserPaymentDetails {
         this.user = user;
     }
 
-    public String getOppoName() {
-        return oppoName;
+    public String getOpponame() {
+        return opponame;
     }
 
-    public void setOppoName(String oppoName) {
-        this.oppoName = oppoName;
+    public void setOpponame(String opponame) {
+        this.opponame = opponame;
     }
 
     public Double getLentAmount() {

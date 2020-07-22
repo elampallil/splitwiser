@@ -7,4 +7,6 @@ import com.example.splitwize.splitwize.request.PaymentDetailRequest;
 
 public interface PaymentService {
     UserPaymentDetails saveUserPaymentDetails(PaymentDetailRequest paymentDetailRequest, Principal principal);
+    UserPaymentDetails saveUserPaymentUpdatedDetails(PaymentDetailRequest paymentDetailRequest, Principal principal);
+    String userDetailsDeleted(Principal principal);
 }
