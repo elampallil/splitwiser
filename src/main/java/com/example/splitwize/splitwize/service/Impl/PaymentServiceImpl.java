@@ -12,6 +12,7 @@ import com.example.splitwize.splitwize.service.PaymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -44,6 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public String userDetailsDeleted(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new UserNotFoundException());
       return userPaymentDetailsRepository.deleteByUser(user).toString();
