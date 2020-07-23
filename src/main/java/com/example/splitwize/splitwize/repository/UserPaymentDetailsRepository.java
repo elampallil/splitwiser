@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserPaymentDetailsRepository extends JpaRepository<UserPaymentDetails, Integer > {
     UserPaymentDetails findByOpponame(String name);
-    Void deleteByUser(User user);
+    Long deleteByUser(User user);
 }
