@@ -1,7 +1,9 @@
 package com.example.splitwize.splitwize.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 
+import com.example.splitwize.splitwize.entity.User;
 import com.example.splitwize.splitwize.entity.UserPaymentDetails;
 import com.example.splitwize.splitwize.request.PaymentDetailRequest;
 import com.example.splitwize.splitwize.response.SuccessResponse;
@@ -9,6 +11,8 @@ import com.example.splitwize.splitwize.service.PaymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 /**
  * PaymentController
@@ -38,5 +42,13 @@ public class PaymentController {
     @DeleteMapping("/delete")
     public String userDetailsDeleted(Principal principal){
         return  paymentService.userDetailsDeleted(principal);
+    }
+
+    @GetMapping("/forgotpassword")
+    public SuccessResponse<User> forgotPassword(Principal principal) throws IOException, MessagingException {
+        SuccessResponse<User> userSuccessResponse = new SuccessResponse<User>();
+           userSuccessResponse =  (paymentService.forgotPassword(principal));
+
+        return userSuccessResponse;
     }
 }

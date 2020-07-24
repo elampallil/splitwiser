@@ -12,6 +12,7 @@ import com.example.splitwize.splitwize.response.AuthResponse;
 import com.example.splitwize.splitwize.response.UserDetailsResponse;
 import com.example.splitwize.splitwize.service.CustomUserDetailsService;
 import com.example.splitwize.splitwize.utils.JwtTokenUtil;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,7 +21,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
+import java.util.Properties;
 
 @Service
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
@@ -79,4 +83,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         user.orElseThrow(() -> new UserNotFoundException("User with id:" + id + " not found"));
         return user.map(UserDetailsResponse::new).get();
     }
+
+
+
 }

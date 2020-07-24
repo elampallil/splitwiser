@@ -5,6 +5,7 @@ import com.example.splitwize.splitwize.entity.User;
 import com.example.splitwize.splitwize.request.AuthRequest;
 import com.example.splitwize.splitwize.request.UserRegisterRequest;
 import com.example.splitwize.splitwize.response.AuthResponse;
+import com.example.splitwize.splitwize.response.SuccessResponse;
 import com.example.splitwize.splitwize.response.UserDetailsResponse;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,4 +21,6 @@ public interface CustomUserDetailsService extends UserDetailsService {
     User addUser(UserRegisterRequest userRegisterRequest);
 
 	UserDetailsResponse getUserDetailsFromId(int id);
+
+
 }
